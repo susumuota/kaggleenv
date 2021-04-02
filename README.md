@@ -124,7 +124,6 @@ Try `kaggle` command on the Notebook.
 
 ```sh
 !kaggle competitions list
-...
 ```
 
 Done!
@@ -162,7 +161,7 @@ docker builder prune
 docker volume prune
 ```
 
-## Setup VSCode to open Notebook
+## Setup VSCode to open Notebooks
 
 If you are using [Visual Studio Code (VSCode)](https://code.visualstudio.com/), you can setup VSCode to connect the Notebook.
 
@@ -190,10 +189,11 @@ Connect to the remote Notebook. See details [here](https://code.visualstudio.com
 Sometimes containers need much memory more than 2GB (default value). You can increase amount of memory from Docker preferences.
 
 - Click Docker icon
-- `Preferences...`
-- `ADVANCED`
-- `Memory`
-- Increase value over `2.00 GB`
+- Choose `Preferences...`
+- Click `Resources`
+- Click `ADVANCED`
+- Increase `Memory` slider over `2.00 GB`
+- Click `Apply & Restart`
 
 ## TODO
 
