@@ -129,6 +129,14 @@ Try `kaggle` command on the Notebook.
 
 Done!
 
+## Run `docker-compose down`
+
+After you finished your work, run `docker-compose down` to stop docker container. See details [here](https://docs.docker.com/compose/reference/down/).
+
+```sh
+% docker-compose down
+```
+
 ## Remove containers, images and cache
 
 How to remove containers. See details [here](https://docs.docker.com/engine/reference/commandline/rm/).
