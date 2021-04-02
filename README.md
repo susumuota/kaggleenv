@@ -25,7 +25,7 @@ docker-compose version 1.28.5, build c4eb3a1f
 
 Create a directory (e.g. `projectname`) and go to there. Or open terminal and type `git clone https://github.com/susumuota/kaggleenv.git`.
 
-Create a `Dockerfile` like the following.
+Create a `Dockerfile` like the following. See details [here](https://docs.docker.com/engine/reference/builder/).
 
 ```Dockerfile
 FROM gcr.io/kaggle-images/python:v99
@@ -37,9 +37,9 @@ RUN pip install -U pip
 
 You could specify tag (e.g. `v99`) to keep using same environment, otherwise it always changes to latest one. You can find tags from [here](https://gcr.io/kaggle-images/python). `v99` is latest right now.
 
-See details [here](https://docs.docker.com/engine/reference/builder/).
-
 ## Edit `docker-compose.yml`
+
+Edit `docker-compose.yml`. See details [here](https://docs.docker.com/compose/).
 
 ```yaml
 version: "3"
@@ -75,7 +75,7 @@ projectname_jupyter   latest    ............   28 minutes ago   18.5GB
 
 ## Run `docker-compose up`
 
-Run `cocker-compose up` to start docker container.
+Run `docker-compose up` to start docker container.
 
 See details [here](https://docs.docker.com/compose/reference/up/).
 
