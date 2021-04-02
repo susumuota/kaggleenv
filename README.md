@@ -101,7 +101,7 @@ If you are using [Visual Studio Code (VSCode)](https://code.visualstudio.com/), 
 
 ### [Optional] Install newest Notebook extension
 
-There is a revamped version of Notebook extention. See details [here](https://devblogs.microsoft.com/python/notebooks-are-getting-revamped/). I recommend to install it because this new version can handle custom extensions (e.g. key bindings) properly inside code cells, etc.
+There is a revamped version of Notebook extension. See details [here](https://devblogs.microsoft.com/python/notebooks-are-getting-revamped/). I recommend to install it because this new version can handle custom extensions (e.g. key bindings) properly inside code cells, etc.
 
 ### Connect to remote Notebook
 
