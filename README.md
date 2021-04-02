@@ -2,11 +2,11 @@
 
 ![vscode_jupyter](https://user-images.githubusercontent.com/1632335/113431667-0d1b8c80-9417-11eb-8183-e89084670f39.png)
 
-This is a short description about how to setup "Python Notebooks on Kaggle" environment on your local machine by Docker and how to setup Visual Studio Code (VSCode) to connect the environment.
+This is a short description about how to setup ["Python Notebooks on Kaggle"](https://github.com/Kaggle/docker-python) environment on your local machine by [Docker](https://www.docker.com/) and how to setup [Visual Studio Code (VSCode)](https://code.visualstudio.com/) to connect the environment.
 
 A primally information source comes from [Kaggle's repository](https://github.com/Kaggle/docker-python) and [guide](https://medium.com/kaggleteam/how-to-get-started-with-data-science-in-containers-6ed48cb08266) (but it is a bit obsoleted guide written in 2016).
 
-**Note: This method may take 30 minutes and 18.5GB for data downloads. If it's too much for your computer, you should consider an another way.**
+**Note: This method may take 30 minutes and 18.5GB disks for data downloads.**
 
 All files in this document are available on [my repository](https://github.com/susumuota/kaggleenv).
 
@@ -27,7 +27,7 @@ docker-compose version 1.28.5, build c4eb3a1f
 
 Create a directory (e.g. `projectname`) and go to there.
 
-Create a `Dockerfile` like the following. See details [here](https://docs.docker.com/engine/reference/builder/).
+Create a `Dockerfile` like the following. See details [here](https://docs.docker.com/engine/reference/builder/#format).
 
 ```Dockerfile
 FROM gcr.io/kaggle-images/python:v99
@@ -37,7 +37,7 @@ FROM gcr.io/kaggle-images/python:v99
 RUN pip install -U pip
 ```
 
-You could specify a tag (e.g. `v99`) to keep using same environment, otherwise it always fetches latest one. You can find tags from [GCR page](https://gcr.io/kaggle-images/python).
+You could specify a tag (e.g. `v99`) to keep using same environment, otherwise it fetches latest one every time you build image. You can find tags from [GCR page](https://gcr.io/kaggle-images/python).
 
 ## Edit `docker-compose.yml`
 
@@ -61,7 +61,7 @@ services:
 
 Run `docker-compose build` to build docker image. See details [here](https://docs.docker.com/compose/reference/build/).
 
-**Note: This may take 30 minutes and 18.5GB for data downloads**.
+**Note: This may take 30 minutes and 18.5GB disks for data downloads**.
 
 ```sh
 % docker-compose build
