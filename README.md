@@ -2,7 +2,7 @@
 
 ![vscode_jupyter](https://user-images.githubusercontent.com/1632335/113431667-0d1b8c80-9417-11eb-8183-e89084670f39.png)
 
-This is a short description about how to create "Python Notebooks on Kaggle" environment on your local machine by Docker and how to setup Visual Studio Code (VSCode) to connect the environment.
+This is a short description about how to setup "Python Notebooks on Kaggle" environment on your local machine by Docker and how to setup Visual Studio Code (VSCode) to connect the environment.
 
 A primally information source comes from [repository](https://github.com/Kaggle/docker-python) and [guide](https://medium.com/kaggleteam/how-to-get-started-with-data-science-in-containers-6ed48cb08266) (but it is a bit obsoleted guide written in 2016).
 
