@@ -195,7 +195,7 @@ Sometimes containers need much memory more than 2GB (default value). You can inc
 ## Links
 
 - https://github.com/Kaggle/docker-python
-- https://github.com/susumuota/kaggleenv.git
+- https://github.com/susumuota/kaggleenv
 - https://code.visualstudio.com/docs/python/jupyter-support#_connect-to-a-remote-jupyter-server
 - https://devblogs.microsoft.com/python/notebooks-are-getting-revamped/
 - https://amalog.hateblo.jp/entry/data-analysis-docker  (Japanese)
