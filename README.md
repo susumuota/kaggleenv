@@ -57,15 +57,15 @@ services:
 
 ## Run `docker-compose build`
 
-Run `docker-compose build` to build docker image. This may take 30 minutes and **18.5GB** for data downloads.
+Run `docker-compose build` to build docker image. See details [here](https://docs.docker.com/compose/reference/build/).
+
+**Note: This may take 30 minutes and 18.5GB for data downloads**.
 
 ```sh
 % docker-compose build
 ```
 
-See details [here](https://docs.docker.com/compose/reference/build/).
-
-Confirm by `docker images`.
+Confirm the image by `docker images`.
 
 ```sh
 % docker images
@@ -81,7 +81,7 @@ Run `docker-compose up` to start docker container. See details [here](https://do
 % docker-compose up
 ```
 
-Find Notebook URL on the log and copy it.
+Find the Notebook URL on the log and copy it.
 
 ```
 http://localhost:8888/?token=...
@@ -90,10 +90,12 @@ http://localhost:8888/?token=...
 ## Open Notebook by web browser
 
 - Open web browser and type the Notebook URL (`http://localhost:8888/?token=...`).
-- Create a Python3 Notebook.
+- Create a `Python 3` Notebook.
 - Create code cells and execute `!pwd`, `!ls` and `!pip list` to confirm Python environment.
 
 ## Setup Kaggle API
+
+Setup Kaggle API credentials. See details [here](https://github.com/Kaggle/kaggle-api#api-credentials).
 
 Open terminal **on your local machine** and copy `~/.kaggle/kaggle.json` to current directory (so that it can be accessed from the container at `/tmp/working/kaggle.json`)
 
@@ -111,7 +113,7 @@ Create a code cell on the Notebook and type
 Copy it to `~/.kaggle` directory on the container.
 
 ```sh
-!cp -p /tmp/working/kaggle.json ~/.kaggle
+!cp -p /tmp/working/kaggle.json ~/.kaggle/
 ```
 
 Remove `kaggle.json` on the current directory **on your local machine**.
