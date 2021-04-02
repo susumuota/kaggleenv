@@ -2,7 +2,7 @@
 
 This is a short description about how to create "Python Notebooks on Kaggle" environment on your local machine by Docker and how to setup Visual Studio Code (VSCode) to connect the environment.
 
-A primally information source comes from [here](https://github.com/Kaggle/docker-python). But unfortunately it lacks tutorials to setup environment right now.
+A primally information source comes from [repository](https://github.com/Kaggle/docker-python) and [guide](https://medium.com/kaggleteam/how-to-get-started-with-data-science-in-containers-6ed48cb08266) (but it is a bit obsoleted guide written in 2016).
 
 Note: This method may take 30 minutes and **18.5GB** for data downloads. If it's too much for your computer, you should consider an another way.
 
@@ -203,6 +203,7 @@ Sometimes containers need much memory more than 2GB (default value). You can inc
 ## Links
 
 - https://github.com/Kaggle/docker-python
+- https://medium.com/kaggleteam/how-to-get-started-with-data-science-in-containers-6ed48cb08266
 - https://github.com/susumuota/kaggleenv
 - https://code.visualstudio.com/docs/python/jupyter-support#_connect-to-a-remote-jupyter-server
 - https://devblogs.microsoft.com/python/notebooks-are-getting-revamped/
