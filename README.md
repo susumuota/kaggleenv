@@ -190,7 +190,7 @@ Connect to the remote Notebook. See details [here](https://code.visualstudio.com
 
 ## Increase Docker memory
 
-Sometimes containers need much memory more than 2GB (default value). You can increase amount of memory from Docker preferences.
+Sometimes containers need much memory more than 2GB (is it default value?). You can increase amount of memory from Docker preferences.
 
 - Click Docker icon
 - Choose `Preferences...`
