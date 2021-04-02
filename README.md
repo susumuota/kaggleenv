@@ -6,6 +6,8 @@ A primally information source comes from [here](https://github.com/Kaggle/docker
 
 Note: This method may take 30 minutes and **18.5GB** for data downloads. If it's too much for your computer, you should consider an another way.
 
+All files in this document are available from [here](https://github.com/susumuota/kaggleenv)
+
 ## Install Docker
 
 Install and setup Docker from [here](https://docs.docker.com/get-docker/).
@@ -21,14 +23,13 @@ docker-compose version 1.28.5, build c4eb3a1f
 
 ## Edit `Dockerfile`
 
-Create a directory (e.g. `projectname`) and go to there.
+Create a directory (e.g. `projectname`) and go to there. Or open terminal and type `git clone https://github.com/susumuota/kaggleenv.git`.
 
 Create a `Dockerfile` like the following.
 
 ```Dockerfile
 FROM gcr.io/kaggle-images/python:v99
-# for GPU
-# FROM gcr.io/kaggle-gpu-images/python:v99
+# FROM gcr.io/kaggle-gpu-images/python:v99  # for GPU
 
 # add extra modules here
 RUN pip install -U pip
@@ -98,7 +99,13 @@ http://localhost:8888/?token=...
 
 If you are using [Visual Studio Code (VSCode)](https://code.visualstudio.com/), you can setup VSCode to connect the Notebook.
 
-See details [here](https://code.visualstudio.com/docs/python/jupyter-support#_connect-to-a-remote-jupyter-server).
+### [Optional] Install newest Notebook extension
+
+There is a revamped version of Notebook extention. See details [here](https://devblogs.microsoft.com/python/notebooks-are-getting-revamped/). I recommend to install it because this new version can handle custom extensions (e.g. key bindings) properly inside code cells, etc.
+
+### Connect to remote Notebook
+
+Connect to the remote Notebook. See details [here](https://code.visualstudio.com/docs/python/jupyter-support#_connect-to-a-remote-jupyter-server).
 
 - Open `Settings`
 - Change `Jupyter: Jupyter Server Type` to `remote`
@@ -136,11 +143,64 @@ docker builder prune
 docker volume prune
 ```
 
+## Setup Kaggle API on Notebook
+
+Open terminal **on your local machine** and copy `~/.kaggle/kaggle.json` to current directory (so that it can be accessed from the container at `/tmp/working/kaggle.json`)
+
+```sh
+% cp -p ~/.kaggle/kaggle.json .
+```
+
+Create a code cell on the Notebook and type
+
+```sh
+!ls -l /tmp/working/kaggle.json
+-rw------- 1 root root 65 Mar 22 07:59 /tmp/working/kaggle.json
+```
+
+Copy it to `~/.kaggle` directory on the container.
+
+```sh
+!cp -p /tmp/working/kaggle.json ~/.kaggle
+```
+
+Remove `kaggle.json` on the current directory **on your local machine**.
+
+```sh
+% rm -i kaggle.json
+```
+
+Try `kaggle` command on the Notebook.
+
+```sh
+!kaggle competitions list
+...
+```
+
+Done!
+
+## Increase Docker memory
+
+Sometimes containers need much memory more than 2GB (default value). You can increase amount of memory from Docker preferences.
+
+- Click Docker icon
+- `Preferences...`
+- `ADVANCED`
+- `Memory`
+- Increase value over `2.00 GB`
+
 ## TODO
 
-- Setup Kaggle API
 - Setup on GCP with GPU
 - Workflow to submit local Notebook to Kaggle
+
+## Links
+
+- https://github.com/Kaggle/docker-python
+- https://github.com/susumuota/kaggleenv.git
+- https://code.visualstudio.com/docs/python/jupyter-support#_connect-to-a-remote-jupyter-server
+- https://devblogs.microsoft.com/python/notebooks-are-getting-revamped/
+- https://amalog.hateblo.jp/entry/data-analysis-docker  (Japanese)
 
 ## Author
 
