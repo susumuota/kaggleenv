@@ -4,15 +4,15 @@
 
 This is a short description about how to setup "Python Notebooks on Kaggle" environment on your local machine by Docker and how to setup Visual Studio Code (VSCode) to connect the environment.
 
-A primally information source comes from [repository](https://github.com/Kaggle/docker-python) and [guide](https://medium.com/kaggleteam/how-to-get-started-with-data-science-in-containers-6ed48cb08266) (but it is a bit obsoleted guide written in 2016).
+A primally information source comes from [Kaggle's repository](https://github.com/Kaggle/docker-python) and [guide](https://medium.com/kaggleteam/how-to-get-started-with-data-science-in-containers-6ed48cb08266) (but it is a bit obsoleted guide written in 2016).
 
 **Note: This method may take 30 minutes and 18.5GB for data downloads. If it's too much for your computer, you should consider an another way.**
 
-All files in this document are available from [here](https://github.com/susumuota/kaggleenv).
+All files in this document are available on [my repository](https://github.com/susumuota/kaggleenv).
 
 ## Install Docker
 
-Install and setup Docker from [here](https://docs.docker.com/get-docker/).
+[Install and setup Docker](https://docs.docker.com/get-docker/).
 
 After that, `docker` and `docker-compose` commands should be available on your terminal.
 
@@ -25,7 +25,7 @@ docker-compose version 1.28.5, build c4eb3a1f
 
 ## Edit `Dockerfile`
 
-Create a directory (e.g. `projectname`) and go to there. Or open terminal and type `git clone https://github.com/susumuota/kaggleenv.git`.
+Create a directory (e.g. `projectname`) and go to there.
 
 Create a `Dockerfile` like the following. See details [here](https://docs.docker.com/engine/reference/builder/).
 
@@ -37,7 +37,7 @@ FROM gcr.io/kaggle-images/python:v99
 RUN pip install -U pip
 ```
 
-You could specify a tag (e.g. `v99`) to keep using same environment, otherwise it always fetches latest one. You can find tags from [here](https://gcr.io/kaggle-images/python).
+You could specify a tag (e.g. `v99`) to keep using same environment, otherwise it always fetches latest one. You can find tags from [GCR page](https://gcr.io/kaggle-images/python).
 
 ## Edit `docker-compose.yml`
 
