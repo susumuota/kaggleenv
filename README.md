@@ -35,7 +35,7 @@ FROM gcr.io/kaggle-images/python:v99
 RUN pip install -U pip
 ```
 
-You could specify tag (e.g. `v99`) to keep using same environment, otherwise it always changes to latest one. You can find tags from [here](https://gcr.io/kaggle-images/python). `v99` is latest right now.
+You could specify a tag (e.g. `v99`) to keep using same environment, otherwise it always fetches latest one. You can find tags from [here](https://gcr.io/kaggle-images/python).
 
 ## Edit `docker-compose.yml`
 
