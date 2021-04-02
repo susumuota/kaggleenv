@@ -4,7 +4,7 @@ This is a short description about how to create "Python Notebooks on Kaggle" env
 
 A primally information source comes from [repository](https://github.com/Kaggle/docker-python) and [guide](https://medium.com/kaggleteam/how-to-get-started-with-data-science-in-containers-6ed48cb08266) (but it is a bit obsoleted guide written in 2016).
 
-Note: This method may take 30 minutes and **18.5GB** for data downloads. If it's too much for your computer, you should consider an another way.
+**Note: This method may take 30 minutes and 18.5GB for data downloads. If it's too much for your computer, you should consider an another way.**
 
 All files in this document are available from [here](https://github.com/susumuota/kaggleenv).
 
@@ -57,7 +57,7 @@ services:
 
 ## Run `docker-compose build`
 
-Run `docker-compose build` to build docker image. This may take 30 minutes and **18.5GB** data downloads.
+Run `docker-compose build` to build docker image. This may take 30 minutes and **18.5GB** for data downloads.
 
 ```sh
 % docker-compose build
