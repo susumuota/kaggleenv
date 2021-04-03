@@ -4,7 +4,7 @@
 
 This is a short description about how to setup ["Python Notebooks on Kaggle"](https://github.com/Kaggle/docker-python) environment on your local machine by [Docker](https://www.docker.com/) and how to setup [Visual Studio Code (VSCode)](https://code.visualstudio.com/) to connect the environment.
 
-A primally information source comes from [Kaggle's repository](https://github.com/Kaggle/docker-python) and [guide](https://medium.com/kaggleteam/how-to-get-started-with-data-science-in-containers-6ed48cb08266) (but unfortunately it's a bit obsoleted guide written in 2016).
+A primally information source comes from [Kaggle's repository](https://github.com/Kaggle/docker-python). Also there is a [guide](https://medium.com/kaggleteam/how-to-get-started-with-data-science-in-containers-6ed48cb08266), but unfortunately it's a bit obsoleted guide written in 2016.
 
 **Note: This method may take 30 minutes and 18.5GB disks for data downloads.**
 
