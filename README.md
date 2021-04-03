@@ -156,7 +156,7 @@ After you finished your work, run `docker-compose down` to stop docker container
 
 ## Remove containers, images and cache
 
-Basically `docker-compose up` and `docker-compose down` works well, but sometimes you may need to use these commands.
+Basically `docker-compose up` and `docker-compose down` work well, but sometimes you may need to use these commands.
 
 How to remove containers. See details [here](https://docs.docker.com/engine/reference/commandline/rm/).
 
