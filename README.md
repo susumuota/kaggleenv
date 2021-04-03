@@ -108,8 +108,9 @@ http://localhost:8888/?token=...
 - Create a `Python 3` Notebook.
 - Create code cells and execute `!pwd`, `!ls` and `!pip list` to confirm Python environment.
 
-## Setup Kaggle API
+![jupyter_kaggle](https://user-images.githubusercontent.com/1632335/113484058-5afcc700-94e1-11eb-9f2e-a6fd01a0121a.png)
 
+## Setup Kaggle API
 
 [Setup Kaggle API credentials](https://github.com/Kaggle/kaggle-api#api-credentials).
 
