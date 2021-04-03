@@ -23,11 +23,11 @@ Docker version 20.10.5, build 55c4c88
 docker-compose version 1.28.5, build c4eb3a1f
 ```
 
-## Edit `Dockerfile`
+## Create `Dockerfile`
 
 Create a directory (e.g. `projectname`) and go to there.
 
-Create a `Dockerfile` like the following. See details [here](https://docs.docker.com/engine/reference/builder/#format).
+Create `Dockerfile` like the following. See details [here](https://docs.docker.com/engine/reference/builder/#format).
 
 ```Dockerfile
 FROM gcr.io/kaggle-images/python:v99
@@ -39,9 +39,9 @@ RUN pip install -U pip
 
 You could specify a tag (e.g. `v99`) to keep using same environment, otherwise it fetches latest one every time you build image. You can find tags from [GCR page](https://gcr.io/kaggle-images/python).
 
-## Edit `docker-compose.yml`
+## Create `docker-compose.yml`
 
-Edit `docker-compose.yml`. See details [here](https://docs.docker.com/compose/). This setting mounts current directory on your local machine to `/tmp/working` on the container.
+Create `docker-compose.yml` like the following. See details [here](https://docs.docker.com/compose/). This setting mounts current directory on your local machine to `/tmp/working` on the container.
 
 ```yaml
 version: "3"
@@ -177,7 +177,7 @@ There is a revamped version of Notebook extension. See details [here](https://de
 
 Connect to the remote Notebook. See details [here](https://code.visualstudio.com/docs/python/jupyter-support#_connect-to-a-remote-jupyter-server).
 
-- Open `Command Palette...`,
+- Open `Command Palette...`
 - Type `Jupyter: Specify local or remote Jupyter server for connections`
 
 ![vscode_palette](https://user-images.githubusercontent.com/1632335/113466765-3bca4f00-9479-11eb-914e-7d90ac073daf.png)
