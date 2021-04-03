@@ -4,7 +4,7 @@
 
 This is a short description about how to setup ["Python Notebooks on Kaggle"](https://github.com/Kaggle/docker-python) environment on your local machine by [Docker](https://www.docker.com/) and how to setup [Visual Studio Code (VSCode)](https://code.visualstudio.com/) to connect the environment.
 
-A primally information source comes from [Kaggle's repository](https://github.com/Kaggle/docker-python) and [guide](https://medium.com/kaggleteam/how-to-get-started-with-data-science-in-containers-6ed48cb08266) (but it is a bit obsoleted guide written in 2016).
+A primally information source comes from [Kaggle's repository](https://github.com/Kaggle/docker-python) and [guide](https://medium.com/kaggleteam/how-to-get-started-with-data-science-in-containers-6ed48cb08266) (but unfortunately it's a bit obsoleted guide written in 2016).
 
 **Note: This method may take 30 minutes and 18.5GB disks for data downloads.**
 
@@ -57,6 +57,19 @@ services:
     command: jupyter-lab --ip=0.0.0.0 --allow-root --no-browser --notebook-dir=/tmp/working
 ```
 
+## Create `.dockerignore`
+
+Create `.dockerignore` like the following. See details [here](https://docs.docker.com/engine/reference/builder/#dockerignore-file). This setting specifies subdirectories and files that should be ignored when building docker image. Basically, you will **mount** current directory, so you don't need to **include** subdirectories and files into image. Especially `input` directory should be ignored because it may include large files so that build process may take long time.
+
+```
+README.md
+input
+output
+.git
+.gitignore
+.vscode
+```
+
 ## Run `docker-compose build`
 
 Run `docker-compose build` to build docker image. See details [here](https://docs.docker.com/compose/reference/build/).
@@ -97,9 +110,12 @@ http://localhost:8888/?token=...
 
 ## Setup Kaggle API
 
-Setup Kaggle API credentials. See details [here](https://github.com/Kaggle/kaggle-api#api-credentials).
 
-- Open terminal **on your local machine** and copy `~/.kaggle/kaggle.json` to current directory (so that it can be accessed from the container at `/tmp/working/kaggle.json`)
+[Setup Kaggle API credentials](https://github.com/Kaggle/kaggle-api#api-credentials).
+
+After that, `~/.kaggle/kaggle.json` file should be on your local machine.
+
+- Copy `~/.kaggle/kaggle.json` to current directory **on your local machine** (so that it can be accessed from the container at `/tmp/working/kaggle.json`)
 
 ```sh
 % cp -p ~/.kaggle/kaggle.json .
@@ -139,6 +155,8 @@ After you finished your work, run `docker-compose down` to stop docker container
 ```
 
 ## Remove containers, images and cache
+
+Basically `docker-compose up` and `docker-compose down` works well, but sometimes you may need to use these commands.
 
 How to remove containers. See details [here](https://docs.docker.com/engine/reference/commandline/rm/).
 
@@ -202,8 +220,6 @@ Connect to the remote Notebook. See details [here](https://code.visualstudio.com
 - Create code cells and execute `!pwd`, `!ls` and `!pip list` to confirm Python environment.
 
 ![vscode_new_notebook](https://user-images.githubusercontent.com/1632335/113467525-75518900-947e-11eb-86e1-e9e79d84e610.png)
-
-
 
 ## Increase Docker memory
 
