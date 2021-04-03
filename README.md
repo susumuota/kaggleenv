@@ -99,38 +99,36 @@ http://localhost:8888/?token=...
 
 Setup Kaggle API credentials. See details [here](https://github.com/Kaggle/kaggle-api#api-credentials).
 
-Open terminal **on your local machine** and copy `~/.kaggle/kaggle.json` to current directory (so that it can be accessed from the container at `/tmp/working/kaggle.json`)
+- Open terminal **on your local machine** and copy `~/.kaggle/kaggle.json` to current directory (so that it can be accessed from the container at `/tmp/working/kaggle.json`)
 
 ```sh
 % cp -p ~/.kaggle/kaggle.json .
 ```
 
-Create a code cell on the Notebook and type
+- Create a code cell on the Notebook and confirm `/tmp/working/kaggle.json` on the container.
 
 ```sh
 !ls -l /tmp/working/kaggle.json
 -rw------- 1 root root 65 Mar 22 07:59 /tmp/working/kaggle.json
 ```
 
-Copy it to `~/.kaggle` directory on the container.
+- Copy it to `~/.kaggle` directory on the container.
 
 ```sh
 !cp -p /tmp/working/kaggle.json ~/.kaggle/
 ```
 
-Remove `kaggle.json` on the current directory **on your local machine**.
+- Remove `kaggle.json` on the current directory **on your local machine**.
 
 ```sh
 % rm -i kaggle.json
 ```
 
-Try `kaggle` command on the Notebook.
+- Try `kaggle` command on the Notebook.
 
 ```sh
 !kaggle competitions list
 ```
-
-Done!
 
 ## Run `docker-compose down`
 
@@ -173,20 +171,39 @@ If you are using [Visual Studio Code (VSCode)](https://code.visualstudio.com/), 
 
 There is a revamped version of Notebook extension. See details [here](https://devblogs.microsoft.com/python/notebooks-are-getting-revamped/). I recommend to install it because this new version can handle custom extensions (e.g. key bindings) properly inside code cells, etc.
 
+![vscode_jupyter](https://user-images.githubusercontent.com/1632335/113431667-0d1b8c80-9417-11eb-8183-e89084670f39.png)
+
 ### Connect to remote Notebook
 
 Connect to the remote Notebook. See details [here](https://code.visualstudio.com/docs/python/jupyter-support#_connect-to-a-remote-jupyter-server).
 
-- Open `Settings`
-- Change `Jupyter: Jupyter Server Type` to `remote`
 - Open `Command Palette...`,
 - Type `Jupyter: Specify local or remote Jupyter server for connections`
+
+![vscode_palette](https://user-images.githubusercontent.com/1632335/113466765-3bca4f00-9479-11eb-914e-7d90ac073daf.png)
+
 - Choose `Existing: Specify the URI of an existing server`
+
+![vscode_existing](https://user-images.githubusercontent.com/1632335/113467276-01fb4780-947d-11eb-93f6-a4f5a974d323.png)
+
 - Specify the Notebook URL (`http://localhost:8888/?token=...`)
+
+![vscode_uri](https://user-images.githubusercontent.com/1632335/113467238-c2ccf680-947c-11eb-9388-1ecd2297eb6b.png)
+
 - Press `Reload` button
+
+![vscode_reload](https://user-images.githubusercontent.com/1632335/113467629-31ab4f00-947f-11eb-9062-1bbc5566ab86.png)
+
 - Open `Command Palette...`
 - Type `Jupyter: Create New Blank Notebook`
+
+![vscode_create](https://user-images.githubusercontent.com/1632335/113467560-9f0ab000-947e-11eb-865e-62beeed43f12.png)
+
 - Create code cells and execute `!pwd`, `!ls` and `!pip list` to confirm Python environment.
+
+![vscode_new_notebook](https://user-images.githubusercontent.com/1632335/113467525-75518900-947e-11eb-86e1-e9e79d84e610.png)
+
+
 
 ## Increase Docker memory
 
@@ -198,6 +215,8 @@ Sometimes containers need much memory more than 2GB (is it default value?). You 
 - Click `ADVANCED`
 - Increase `Memory` slider over `2.00 GB`
 - Click `Apply & Restart`
+
+![docker_preferences](https://user-images.githubusercontent.com/1632335/113466563-dc1f7400-9477-11eb-861d-fa4dd0ce357c.png)
 
 ## TODO
 
