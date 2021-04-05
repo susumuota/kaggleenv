@@ -1,5 +1,5 @@
---- /opt/jupyter/.jupyter/jupyter_notebook_config.py.orig	2021-02-17 07:52:56.000000000 +0000
-+++ /opt/jupyter/.jupyter/jupyter_notebook_config.py	2021-04-05 06:19:23.640584228 +0000
+--- jupyter_notebook_config.py.orig	2021-02-17 07:52:56.000000000 +0000
++++ jupyter_notebook_config.py	2021-04-05 06:19:23.640584228 +0000
 @@ -4 +4 @@
 -c.NotebookApp.token = ''
 +# c.NotebookApp.token = ''
