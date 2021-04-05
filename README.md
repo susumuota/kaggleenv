@@ -33,11 +33,39 @@ Create `Dockerfile` like the following. See details [here](https://docs.docker.c
 FROM gcr.io/kaggle-images/python:v99
 # FROM gcr.io/kaggle-gpu-images/python:v99  # for GPU
 
+# apply patch to enable token and change notebook directory to /tmp/working
+# see jupyter_notebook_config.py.patch
+COPY jupyter_notebook_config.py.patch /opt/jupyter/.jupyter/
+RUN (cd /opt/jupyter/.jupyter/ && patch < /opt/jupyter/.jupyter/jupyter_notebook_config.py.patch)
+
 # add extra modules here
 RUN pip install -U pip
 ```
 
 You could specify a tag (e.g. `v99`) to keep using same environment, otherwise it fetches latest one every time you build image. You can find tags from [GCR page](https://gcr.io/kaggle-images/python).
+
+## Create `jupyter_notebook_config.py.patch`
+
+Create `jupyter_notebook_config.py.patch` like the following.
+
+This Docker image will run jupyter lab with startup script `/run_jupyter.sh` and config `/opt/jupyter/.jupyter/jupyter_notebook_config.py`. It needs to be tweaked like the following.
+
+- Enable token (so that VSCode can connect properly)
+- Change notebook directory to `/tmp/working`
+
+```patch
+--- /opt/jupyter/.jupyter/jupyter_notebook_config.py.orig	2021-02-17 07:52:56.000000000 +0000
++++ /opt/jupyter/.jupyter/jupyter_notebook_config.py	2021-04-05 06:19:23.640584228 +0000
+@@ -4 +4 @@
+-c.NotebookApp.token = ''
++# c.NotebookApp.token = ''
+@@ -11 +11,2 @@
+-c.NotebookApp.notebook_dir = '/home/jupyter'
++# c.NotebookApp.notebook_dir = '/home/jupyter'
++c.NotebookApp.notebook_dir = '/tmp/working'
+```
+
+Note: This patch may not work in the future version of Kaggle's Docker image. In that case, create a new patch with `diff -u originalfile newfile > patchfile`. At least I confirmed this patch works on `v99` tag.
 
 ## Create `docker-compose.yml`
 
@@ -52,9 +80,8 @@ services:
       - $PWD:/tmp/working
     working_dir: /tmp/working
     ports:
-      - "8888:8888"
+      - "8080:8080"
     hostname: localhost
-    command: jupyter-lab --ip=0.0.0.0 --allow-root --no-browser --notebook-dir=/tmp/working
 ```
 
 ## Create `.dockerignore`
@@ -99,12 +126,12 @@ Run `docker-compose up` to start docker container. See details [here](https://do
 Find the Notebook URL on the log and copy it.
 
 ```
-http://localhost:8888/?token=...
+http://localhost:8080/?token=...
 ```
 
 ## Open Notebook by web browser
 
-- Open web browser and type the Notebook URL (`http://localhost:8888/?token=...`).
+- Open web browser and type the Notebook URL (`http://localhost:8080/?token=...`).
 - Create a `Python 3` Notebook.
 - Create code cells and execute `!pwd`, `!ls` and `!pip list` to confirm Python environment.
 
@@ -205,7 +232,7 @@ Connect to the remote Notebook. See details [here](https://code.visualstudio.com
 
 ![vscode_existing](https://user-images.githubusercontent.com/1632335/113467276-01fb4780-947d-11eb-93f6-a4f5a974d323.png)
 
-- Specify the Notebook URL (`http://localhost:8888/?token=...`)
+- Specify the Notebook URL (`http://localhost:8080/?token=...`)
 
 ![vscode_uri](https://user-images.githubusercontent.com/1632335/113467238-c2ccf680-947c-11eb-9388-1ecd2297eb6b.png)
 

@@ -6,6 +6,5 @@ services:
       - $PWD:/tmp/working
     working_dir: /tmp/working
     ports:
-      - "8888:8888"
+      - "8080:8080"
     hostname: localhost
-    command: jupyter-lab --ip=0.0.0.0 --allow-root --no-browser --notebook-dir=/tmp/working
