@@ -46,12 +46,12 @@ You could specify a tag (e.g. `v99`) to keep using same environment, otherwise i
 
 ## Create `jupyter_notebook_config.py.patch`
 
-Create `jupyter_notebook_config.py.patch` like the following.
-
 This Docker image will run jupyter lab with startup script `/run_jupyter.sh` and config `/opt/jupyter/.jupyter/jupyter_notebook_config.py`. It needs to be tweaked like the following.
 
 - Enable token (so that VSCode can connect properly)
 - Change notebook directory to `/tmp/working`
+
+Create `jupyter_notebook_config.py.patch` like the following.
 
 ```patch
 --- jupyter_notebook_config.py.orig	2021-02-17 07:52:56.000000000 +0000
