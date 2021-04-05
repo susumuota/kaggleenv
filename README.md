@@ -95,6 +95,7 @@ output
 .git
 .gitignore
 .vscode
+.ipynb_checkpoints
 ```
 
 ## Run `docker-compose build`
