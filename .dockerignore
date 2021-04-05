@@ -4,3 +4,4 @@ output
 .git
 .gitignore
 .vscode
+.ipynb_checkpoints
