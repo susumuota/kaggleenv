@@ -8,5 +8,6 @@ services:
     ports:
       - "8080:8080"
     hostname: localhost
+    restart: always
     # for GPU
     # runtime: nvidia
