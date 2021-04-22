@@ -23,7 +23,7 @@ On GCP, ["AI Platform Notebooks"](https://cloud.google.com/ai-platform/notebooks
 - Click `NEW INSTANCE`
 - Choose `Customize instance`
 - Instance name: e.g. `kaggle-test-1`
-- Environment: `Kaggle Python [BETA]` (This will automatically prepare [Kaggle Docker](https://github.com/Kaggle/docker-python) on startup the VM instance)
+- Environment: `Kaggle Python [BETA]` (This option will automatically prepare [Kaggle Docker](https://github.com/Kaggle/docker-python) at startup the VM instance)
 - GPU type: e.g. `NVIDIA Tesla T4` (It will take 20-30 minutes to startup the VM instance)
   - Mark the checkbox `Install NVIDIA GPU driver automatically for me`
 
