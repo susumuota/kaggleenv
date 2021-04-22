@@ -21,7 +21,7 @@ On GCP, ["AI Platform Notebooks"](https://cloud.google.com/ai-platform/notebooks
 ### Create an AI Platform Notebook
 
 - Access https://console.cloud.google.com/ai/platform/notebooks
-- Choose project e.g. `kaggle-shopee-1` (You must create a project beforehand)
+- Select a project e.g. `kaggle-shopee-1` (You must create a project beforehand)
 - Click `NEW INSTANCE`
 - Choose `Customize instance`
 - Instance name: e.g. `kaggle-test-1`
