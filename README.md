@@ -16,7 +16,7 @@ There are 2 options, GCP or local machine. If you are going to setup the environ
 
 ## [Option 1] Setup the environment on GCP
 
-On GCP, ["AI Platform Notebooks"](https://cloud.google.com/ai-platform/notebooks/docs) service would be easier than ["Compute Engine"](https://cloud.google.com/compute/docs/) (GCE) to setup [Kaggle Python docker image](https://github.com/Kaggle/docker-python).
+On GCP, ["AI Platform Notebooks"](https://cloud.google.com/ai-platform/notebooks/docs) would be easier than ["Compute Engine"](https://cloud.google.com/compute/docs/) (GCE) to setup [Kaggle Python docker image](https://github.com/Kaggle/docker-python).
 
 ### Create an AI Platform Notebook
 
