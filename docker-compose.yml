@@ -10,4 +10,4 @@ services:
     hostname: localhost
     restart: always
     # for GPU
-    # runtime: nvidia
+    runtime: nvidia
