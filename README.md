@@ -49,7 +49,7 @@ After that, `gcloud` command should be available on your terminal.
 - SSH to the VM instance with port forwarding
 
 ```
-gcloud compute --project "kaggle-shopee-1" ssh --zone "us-west1-b" "kaggle-test-1" -- -L 8080:localhost:8080
+% gcloud compute --project "kaggle-shopee-1" ssh --zone "us-west1-b" "kaggle-test-1" -- -L 8080:localhost:8080
 ```
 
 - Open web browser and try to access http://localhost:8080
@@ -67,12 +67,12 @@ If you use VSCode to connect GCP Notebook, you must tweak Docker container. At t
 Stop pre-installed Docker container and turn off the startup option. See details [here](https://docs.docker.com/config/containers/start-containers-automatically/).
 
 ```
-docker ps -a
-docker inspect -f "{{.Name}} {{.HostConfig.RestartPolicy.Name}}" $(docker ps -aq)
-docker update --restart no payload-container
-docker inspect -f "{{.Name}} {{.HostConfig.RestartPolicy.Name}}" $(docker ps -aq)
-docker stop payload-container
-docker ps -a
+% docker ps -a
+% docker inspect -f "{{.Name}} {{.HostConfig.RestartPolicy.Name}}" $(docker ps -aq)
+% docker update --restart no payload-container
+% docker inspect -f "{{.Name}} {{.HostConfig.RestartPolicy.Name}}" $(docker ps -aq)
+% docker stop payload-container
+% docker ps -a
 ```
 
 - Install `docker-compose`
@@ -304,9 +304,9 @@ Basically `docker-compose up -d` and `docker-compose down` work well, but someti
 See details [here](https://docs.docker.com/engine/reference/commandline/rm/).
 
 ```sh
-docker ps -a  # confirm container ids to remove
-docker rm CONTAINER  # remove container by id
-docker rm $(docker ps --filter status=exited -q)  # remove all containers that have exited
+% docker ps -a  # confirm container ids to remove
+% docker rm CONTAINER  # remove container by id
+% docker rm $(docker ps --filter status=exited -q)  # remove all containers that have exited
 ```
 
 - How to remove images
@@ -314,8 +314,8 @@ docker rm $(docker ps --filter status=exited -q)  # remove all containers that h
 See details [here](https://docs.docker.com/engine/reference/commandline/rmi/).
 
 ```sh
-docker images  # confirm image ids to remove
-docker rmi IMAGE  # remove image by id
+% docker images  # confirm image ids to remove
+% docker rmi IMAGE  # remove image by id
 ```
 
 - How to remove cache
@@ -323,9 +323,9 @@ docker rmi IMAGE  # remove image by id
 See details [here](https://docs.docker.com/engine/reference/commandline/builder_prune/) and [here](https://docs.docker.com/engine/reference/commandline/volume_prune/).
 
 ```sh
-docker system df  # confirm how much disk used by cache
-docker builder prune
-docker volume prune
+% docker system df  # confirm how much disk used by cache
+% docker builder prune
+% docker volume prune
 ```
 
 ## Setup VSCode to open remote Notebooks
