@@ -14,7 +14,7 @@ There are 2 options, GCP or local machine. If you setup the environment on your 
 
 ## [Option 1] Setup the environment on GCP
 
-If you setup Kaggle Docker environment on GCP, ["AI Platform Notebooks"](https://cloud.google.com/ai-platform/notebooks/docs) service would be easier than ["Compute Engine"](https://cloud.google.com/compute/docs/) (GCE).
+On GCP, ["AI Platform Notebooks"](https://cloud.google.com/ai-platform/notebooks/docs) service would be easier than ["Compute Engine"](https://cloud.google.com/compute/docs/) (GCE) to setup Kaggle Docker environment.
 
 ### Create an AI Platform Notebook
 
@@ -58,11 +58,11 @@ If you do not use VSCode, that's all. You do not have to do anything below.
 
 ### Stop pre-installed docker container
 
-If you use VSCode to connect GCP Notebook, you must tweak docker container. At the moment, VSCode can only access to remote Jupyter servers with `token` option enabled. But pre-installed docker container disables `token` option by `c.NotebookApp.token = ''`. You must stop pre-installed docker container and run tweaked docker container with `token` option enabled instead.
+If you use VSCode to connect GCP Notebook, you must tweak docker container. At the moment, VSCode can only access to remote Jupyter servers with `token` option enabled. But pre-installed docker container disables `token` option by `c.NotebookApp.token = ''`. You must stop pre-installed docker container and run a new docker container with `token` option enabled instead.
 
 - Stop pre-installed docker container
 
-Stop pre-installed docker container and turn off the startup option. See details [here](https://docs.docker.com/config/containers/start-containers-automatically/)
+Stop pre-installed docker container and turn off the startup option. See details [here](https://docs.docker.com/config/containers/start-containers-automatically/).
 
 ```
 docker ps -a
@@ -75,7 +75,7 @@ docker ps -a
 
 - Install `docker-compose`
 
-`docker-compose` will be convenient to run containers even on a single container. See details [here](https://docs.docker.com/compose/install/).
+`docker-compose` will be convenient to run containers, even on a single container. See details [here](https://docs.docker.com/compose/install/).
 
 ```
 % sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -212,7 +212,7 @@ kaggleenv_jupyter   latest    ............   28 minutes ago   18.5GB
 
 ### Run `docker-compose up -d`
 
-Run `docker-compose up -d` to start docker container in the background. In addition, the container will automatically run on startup machine (`restart: always`).  See details [here](https://docs.docker.com/compose/reference/up/) and [here](https://docs.docker.com/config/containers/start-containers-automatically/).
+Run `docker-compose up -d` to start docker container in the background. In addition, the container will automatically run at startup VM instance or local machine. See details [here](https://docs.docker.com/compose/reference/up/) and [here](https://docs.docker.com/config/containers/start-containers-automatically/).
 
 ```sh
 % docker-compose up -d
@@ -283,7 +283,7 @@ After you finished your work, stop the VM instance.
 
 If you `DELETE` the VM instance, you will not charge anything (as far as I know).
 
-However, if you `STOP` the VM instance, you will charge for storage, but you can skip setup above.
+However, if you `STOP` the VM instance, you will charge for storage until you `DELETE` it. You should `DELETE` if you do not use it for a long time (though you must setup the environment again).
 
 ### Run `docker-compose down` (local machine)
 
@@ -293,7 +293,7 @@ After you finished your work, run `docker-compose down` to stop docker container
 % docker-compose down
 ```
 
-### Remove containers, images and cache
+### Maintain containers, images and cache
 
 Basically `docker-compose up -d` and `docker-compose down` work well, but sometimes you may need to use these commands to maintain containers and images.
 
