@@ -283,7 +283,7 @@ After you finished your work, stop the VM instance.
 
 If you `DELETE` the VM instance, you will not charge anything (as far as I know).
 
-However, if you `STOP` the VM instance, you will charge for storage until you `DELETE` it. You should `DELETE` if you do not use it for a long time (though you must setup the environment again).
+However, if you `STOP` the VM instance, you will charge for resources (e.g. persistent disk) until you `DELETE` it. You should `DELETE` if you do not use it for a long time (though you must setup the environment again). See details [here](https://cloud.google.com/compute/docs/instances/stop-start-instance#billing).
 
 ### Run `docker-compose down` (local machine)
 
