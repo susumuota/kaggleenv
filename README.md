@@ -101,7 +101,7 @@ docker-compose version 1.28.5, build c4eb3a1f
 
 ## Run Docker container (both GCP and local machine)
 
-I prepared a [sample repository](https://github.com/susumuota/kaggleenv) of the `Dockerfile`, etc. If you do not care about details, execute these commands and skip `Setup VSCode to open Notebooks` section.
+I prepared a [sample repository](https://github.com/susumuota/kaggleenv) of the `Dockerfile`, etc. If you do not care about details, execute these commands and skip to `Open Notebook by web browser` section.
 
 ```
 % git clone https://github.com/susumuota/kaggleenv.git
