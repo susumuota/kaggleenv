@@ -1,4 +1,4 @@
-# GCP (or local machine) + Kaggle Docker + VSCode
+# GCP + Kaggle Docker + VSCode
 
 ![vscode_jupyter](https://user-images.githubusercontent.com/1632335/113431667-0d1b8c80-9417-11eb-8183-e89084670f39.png)
 
@@ -24,7 +24,7 @@ On GCP, ["AI Platform Notebooks"](https://cloud.google.com/ai-platform/notebooks
 - Choose `Customize instance`
 - Instance name: e.g. `kaggle-test-1`
 - Environment: `Kaggle Python [BETA]` (This option will automatically prepare [Kaggle Docker](https://github.com/Kaggle/docker-python) at startup the VM instance)
-- GPU type: e.g. `NVIDIA Tesla T4` (It will take 20-30 minutes to startup the VM instance)
+- GPU type: e.g. `NVIDIA Tesla T4`
   - Mark the checkbox `Install NVIDIA GPU driver automatically for me`
 
 ![gcp_notebook_1](https://user-images.githubusercontent.com/1632335/115653028-636e5200-a369-11eb-9bda-8c34036591f4.png)
@@ -326,17 +326,17 @@ docker builder prune
 docker volume prune
 ```
 
-## Setup VSCode to open Notebooks
+## Setup VSCode to open remote Notebooks
 
-If you are using [Visual Studio Code (VSCode)](https://code.visualstudio.com/), you can setup VSCode to connect the Notebook.
+If you are using [Visual Studio Code (VSCode)](https://code.visualstudio.com/), you can setup VSCode to connect to the remote Notebook.
 
-### [Optional] Install newest Notebook extension
+### [Optional] Install the latest Notebook extension
 
 There is a revamped version of Notebook extension. See details [here](https://devblogs.microsoft.com/python/notebooks-are-getting-revamped/). I recommend installing it because this new version can handle custom extensions (e.g. key bindings) properly inside code cells, etc.
 
 ![vscode_jupyter](https://user-images.githubusercontent.com/1632335/113431667-0d1b8c80-9417-11eb-8183-e89084670f39.png)
 
-### Connect to remote Notebook
+### Connect to the remote Notebook
 
 Connect to the remote Notebook. See details [here](https://code.visualstudio.com/docs/python/jupyter-support#_connect-to-a-remote-jupyter-server).
 
