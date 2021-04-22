@@ -52,7 +52,7 @@ After that, `gcloud` command should be available on your terminal.
 % gcloud compute --project "kaggle-shopee-1" ssh --zone "us-west1-b" "kaggle-test-1" -- -L 8080:localhost:8080
 ```
 
-- Open web browser and try to access http://localhost:8080
+- Open web browser and try to access `http://localhost:8080`
 
 Note: There is no `token=...`.
 
