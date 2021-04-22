@@ -2,7 +2,7 @@
 
 ![vscode_jupyter](https://user-images.githubusercontent.com/1632335/113431667-0d1b8c80-9417-11eb-8183-e89084670f39.png)
 
-This is a short description about how to setup [Kaggle Docker](https://github.com/Kaggle/docker-python) environment on the Google Cloud Platform (GCP) or your local machine by [Docker](https://www.docker.com/) and how to setup [Visual Studio Code (VSCode)](https://code.visualstudio.com/) to connect the environment.
+This is a short description about how to setup [Kaggle Docker](https://github.com/Kaggle/docker-python) environment on the [Google Cloud Platform (GCP)](https://cloud.google.com/) or your local machine by [Docker](https://www.docker.com/) and how to setup [Visual Studio Code (VSCode)](https://code.visualstudio.com/) to connect the environment.
 
 A primally information source comes from [Kaggle's repository](https://github.com/Kaggle/docker-python). Also there is a [guide](https://medium.com/kaggleteam/how-to-get-started-with-data-science-in-containers-6ed48cb08266), but unfortunately it's a bit obsoleted guide written in 2016.
 
