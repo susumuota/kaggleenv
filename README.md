@@ -295,39 +295,6 @@ After you finished your work, run `docker-compose down` to stop Docker container
 % docker-compose down
 ```
 
-### Maintain containers, images and cache
-
-Basically `docker-compose up -d` and `docker-compose down` work well, but sometimes you may need to use these commands to maintain containers and images.
-
-- How to remove containers
-
-See details [here](https://docs.docker.com/engine/reference/commandline/rm/).
-
-```sh
-% docker ps -a  # confirm container ids to remove
-% docker rm CONTAINER  # remove container by id
-% docker rm $(docker ps --filter status=exited -q)  # remove all containers that have exited
-```
-
-- How to remove images
-
-See details [here](https://docs.docker.com/engine/reference/commandline/rmi/).
-
-```sh
-% docker images  # confirm image ids to remove
-% docker rmi IMAGE  # remove image by id
-```
-
-- How to remove cache
-
-See details [here](https://docs.docker.com/engine/reference/commandline/builder_prune/) and [here](https://docs.docker.com/engine/reference/commandline/volume_prune/).
-
-```sh
-% docker system df  # confirm how much disk used by cache
-% docker builder prune
-% docker volume prune
-```
-
 ## Setup VSCode to open remote Notebooks
 
 If you are using [Visual Studio Code (VSCode)](https://code.visualstudio.com/), you can setup VSCode to connect to the remote Notebook.
@@ -382,6 +349,33 @@ Sometimes containers need much memory more than 2GB. You can increase the amount
 - Click `Apply & Restart`
 
 ![docker_preferences](https://user-images.githubusercontent.com/1632335/113466563-dc1f7400-9477-11eb-861d-fa4dd0ce357c.png)
+
+## Maintain Docker containers, images and cache
+
+Basically `docker-compose up -d` and `docker-compose down` work well, but sometimes you may need to use these commands to maintain Docker containers, images and cache.
+
+- How to remove containers. See details [here](https://docs.docker.com/engine/reference/commandline/rm/).
+
+```sh
+% docker ps -a  # confirm container ids to remove
+% docker rm CONTAINER  # remove container by id
+% docker rm $(docker ps --filter status=exited -q)  # remove all containers that have exited
+```
+
+- How to remove images. See details [here](https://docs.docker.com/engine/reference/commandline/rmi/).
+
+```sh
+% docker images  # confirm image ids to remove
+% docker rmi IMAGE  # remove image by id
+```
+
+- How to remove cache. See details [here](https://docs.docker.com/engine/reference/commandline/builder_prune/) and [here](https://docs.docker.com/engine/reference/commandline/volume_prune/).
+
+```sh
+% docker system df  # confirm how much disk used by cache
+% docker builder prune
+% docker volume prune
+```
 
 ## TODO
 
