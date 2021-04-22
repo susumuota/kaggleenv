@@ -1,18 +1,92 @@
-# How to setup "Python Notebooks on Kaggle" environment on your local machine by Docker and VSCode
+# GCP (or local machine) + Kaggle Docker + VSCode
 
 ![vscode_jupyter](https://user-images.githubusercontent.com/1632335/113431667-0d1b8c80-9417-11eb-8183-e89084670f39.png)
 
-This is a short description about how to setup ["Python Notebooks on Kaggle"](https://github.com/Kaggle/docker-python) environment on your local machine by [Docker](https://www.docker.com/) and how to setup [Visual Studio Code (VSCode)](https://code.visualstudio.com/) to connect the environment.
+This is a short description about how to setup [Kaggle Docker](https://github.com/Kaggle/docker-python) environment on the Google Cloud Platform (GCP) or your local machine by [Docker](https://www.docker.com/) and how to setup [Visual Studio Code (VSCode)](https://code.visualstudio.com/) to connect the environment.
 
 A primally information source comes from [Kaggle's repository](https://github.com/Kaggle/docker-python). Also there is a [guide](https://medium.com/kaggleteam/how-to-get-started-with-data-science-in-containers-6ed48cb08266), but unfortunately it's a bit obsoleted guide written in 2016.
 
-**Note: This method may take 30 minutes and 18.5GB disks for data downloads.**
+**Note: This method may take 20-30 minutes and 18.5GB disks for data downloads.**
 
 All files in this document are available on [my repository](https://github.com/susumuota/kaggleenv).
 
-## Install Docker
+There are 2 options, GCP or local machine. If you setup on local machine, go to `[Option 2] Setup on local machine` section.
 
-[Install and setup Docker](https://docs.docker.com/get-docker/).
+## [Option 1] Setup on GCP
+
+If you setup environment on GCP, ["AI Platform Notebooks"](https://cloud.google.com/ai-platform/notebooks/docs) service would be easier than ["Compute Engine"](https://cloud.google.com/compute/docs/) (GCE) to setup Kaggle Docker environment.
+
+### Create a AI Platform Notebook
+
+- Access https://console.cloud.google.com/ai/platform/notebooks
+- Choose project e.g. `kaggle-shopee-1` (You need to create a project beforehand)
+- Click `NEW INSTANCE`
+- Choose `Customize instance`
+- Instance name: e.g. `kaggle-test-1`
+- Environment: `Kaggle Python [BETA]` (This will automatically prepare [Kaggle Docker](https://github.com/Kaggle/docker-python) on startup the VM instance)
+- GPU type: e.g. `NVIDIA Tesla T4` (It will take 20-30 minutes to startup the VM instance)
+  - Mark the checkbox `Install NVIDIA GPU driver automatically for me`
+
+![gcp_notebook_1](https://user-images.githubusercontent.com/1632335/115653028-636e5200-a369-11eb-9bda-8c34036591f4.png)
+
+- Open `Networking` section
+  - Mark the radio button `Networks in this project`
+  - Clear the checkbox `Allow proxy access when it's available` (This will avoid to load unnecessary proxy docker container)
+- Click `CREATE`
+
+![gcp_notebook_2](https://user-images.githubusercontent.com/1632335/115653237-c7911600-a369-11eb-88b1-db382a1f997e.png)
+
+- Wait for around 20-30 minutes to startup the VM instance. I guess it's because of `docker pull`. If you choose GPU type: `None`, it just takes a few minutes.
+
+### Connect to the VM instance
+
+- [Install Cloud SDK](https://cloud.google.com/sdk/docs/quickstart). If you are using macOS and Homebrew, `brew install --cask google-cloud-sdk` may be convenient.
+
+After that, `gcloud` command should be available on your terminal.
+
+- SSH to the VM instance with port forwarding
+
+```
+gcloud compute --project "kaggle-shopee-1" ssh --zone "us-west1-b" "kaggle-test-1" -- -L 8080:localhost:8080
+```
+
+- Open web browser and try to access http://localhost:8080
+
+Note: There is no `token=...`.
+
+If you don't use VSCode, that's all. You don't have to do anything below.
+
+### Stop pre-installed docker container
+
+If you use VSCode to connect GCP Notebook, you need to tweak docker container. At the moment, VSCode can only access to remote Jupyter servers with `token` option enabled. But pre-installed docker container disabled `token` option by `c.NotebookApp.token = ''`. You need to stop pre-installed docker container and run tweaked docker container with `token` option enabled instead.
+
+- Stop pre-installed docker container
+
+Stop pre-installed docker container and disable startup option. See details [here](https://docs.docker.com/config/containers/start-containers-automatically/)
+
+```
+docker ps -a
+docker inspect -f "{{.Name}} {{.HostConfig.RestartPolicy.Name}}" $(docker ps -aq)
+docker update --restart no payload-container
+docker inspect -f "{{.Name}} {{.HostConfig.RestartPolicy.Name}}" $(docker ps -aq)
+docker stop payload-container
+docker ps -a
+```
+
+- Install `docker-compose`
+
+`docker-compose` will be convenient to run containers even on the single container. See details [here](https://docs.docker.com/compose/install/)
+
+```
+% sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+% sudo chmod +x /usr/local/bin/docker-compose
+```
+
+Go to `Run Docker container` section.
+
+## [Option 2] Setup on local machine
+
+If you setup environment on your local machine, [Install and setup Docker](https://docs.docker.com/get-docker/).
 
 After that, `docker` and `docker-compose` commands should be available on your terminal.
 
@@ -23,15 +97,32 @@ Docker version 20.10.5, build 55c4c88
 docker-compose version 1.28.5, build c4eb3a1f
 ```
 
-## Create `Dockerfile`
+## Run Docker container (both GCP and local machine)
 
-Create a directory (e.g. `projectname`) and go to there.
+There is a sample [repository](https://github.com/susumuota/kaggleenv) of the `Dockerfile`, etc. If you don't care about details, just execute these commands and go to `Setup VSCode to open Notebooks` section.
 
-Create `Dockerfile` like the following. See details [here](https://docs.docker.com/engine/reference/builder/#format).
+```
+% git clone https://github.com/susumuota/kaggleenv.git
+% cd kaggleenv
+% docker-compose build
+% docker-compose up -d
+% docker-compose logs
+# Find and copy http://localhost:8080/?token=...
+```
+
+Otherwise, follow the instructions below.
+
+### Create `Dockerfile`
+
+Create a directory (e.g. `kaggleenv`) and go to there. If you clone the sample repository, just `cd kaggleenv`.
+
+Create `Dockerfile` like the following. See details [here](https://docs.docker.com/engine/reference/builder/#format). If you use CPU instead of GPU, edit `FROM` lines.
 
 ```Dockerfile
-FROM gcr.io/kaggle-images/python:v99
-# FROM gcr.io/kaggle-gpu-images/python:v99  # for GPU
+# for CPU
+# FROM gcr.io/kaggle-images/python:latest
+# for GPU
+FROM gcr.io/kaggle-gpu-images/python:latest
 
 # apply patch to enable token and change notebook directory to /tmp/working
 # see jupyter_notebook_config.py.patch
@@ -39,12 +130,12 @@ COPY jupyter_notebook_config.py.patch /opt/jupyter/.jupyter/
 RUN (cd /opt/jupyter/.jupyter/ && patch < jupyter_notebook_config.py.patch)
 
 # add extra modules here
-RUN pip install -U pip
+# RUN pip install -U pip
 ```
 
-You could specify a tag (e.g. `v99`) to keep using same environment, otherwise it fetches latest one every time you build image. You can find tags from [GCR page](https://gcr.io/kaggle-images/python).
+You could specify a tag (e.g. edit `latest` to `v99`) to keep using same environment, otherwise it fetches latest one every time you build image. You can find tags from [GCR page](https://gcr.io/kaggle-images/python).
 
-## Create `jupyter_notebook_config.py.patch`
+### Create `jupyter_notebook_config.py.patch`
 
 This Docker image will run jupyter lab with startup script `/run_jupyter.sh` and config `/opt/jupyter/.jupyter/jupyter_notebook_config.py`. It needs to be tweaked like the following.
 
@@ -65,11 +156,11 @@ Create `jupyter_notebook_config.py.patch` like the following.
 +c.NotebookApp.notebook_dir = '/tmp/working'
 ```
 
-Note: This patch may not work in the future version of Kaggle's Docker image. In that case, create a new patch with `diff -u originalfile newfile > patchfile`. At least I confirmed this patch works on `v99` tag.
+Note: This patch may not work in the future version of Kaggle's Docker image. In that case, create a new patch with `diff -u original new > patch`. At least I confirmed this patch works on `v99` tag.
 
-## Create `docker-compose.yml`
+### Create `docker-compose.yml`
 
-Create `docker-compose.yml` like the following. See details [here](https://docs.docker.com/compose/). This setting mounts current directory on your local machine to `/tmp/working` on the container.
+Create `docker-compose.yml` like the following. See details [here](https://docs.docker.com/compose/). This setting mounts current directory on your local machine to `/tmp/working` on the container. If you use CPU instead of GPU, comment out `runtime: nvidia`.
 
 ```yaml
 version: "3"
@@ -82,9 +173,12 @@ services:
     ports:
       - "8080:8080"
     hostname: localhost
+    restart: always
+    # for GPU
+    runtime: nvidia
 ```
 
-## Create `.dockerignore`
+### Create `.dockerignore`
 
 Create `.dockerignore` like the following. See details [here](https://docs.docker.com/engine/reference/builder/#dockerignore-file). This setting specifies subdirectories and files that should be ignored when building docker image. Basically, you will **mount** current directory, so you don't need to **include** subdirectories and files into image. Especially `input` directory should be ignored because it may include large files so that build process may take long time.
 
@@ -98,11 +192,11 @@ output
 .ipynb_checkpoints
 ```
 
-## Run `docker-compose build`
+### Run `docker-compose build`
 
 Run `docker-compose build` to build docker image. See details [here](https://docs.docker.com/compose/reference/build/).
 
-**Note: This may take 30 minutes and 18.5GB disks for data downloads**.
+**Note: This may take 20-30 minutes and 18.5GB disks for data downloads on local machine**.
 
 ```sh
 % docker-compose build
@@ -113,24 +207,28 @@ Confirm the image by `docker images`.
 ```sh
 % docker images
 REPOSITORY            TAG       IMAGE ID       CREATED          SIZE
-projectname_jupyter   latest    ............   28 minutes ago   18.5GB
+kaggleenv_jupyter   latest    ............   28 minutes ago   18.5GB
 ```
 
-## Run `docker-compose up`
+### Run `docker-compose up -d`
 
-Run `docker-compose up` to start docker container. See details [here](https://docs.docker.com/compose/reference/up/).
+Run `docker-compose up -d` to start docker container in the background. And the container will automatically run on startup machine (`restart: always`).  See details [here](https://docs.docker.com/compose/reference/up/) and [here](https://docs.docker.com/config/containers/start-containers-automatically/).
 
 ```sh
-% docker-compose up
+% docker-compose up -d
+% docker ps -a
+% docker inspect -f "{{.Name}} {{.HostConfig.RestartPolicy.Name}}" $(docker ps -aq)
 ```
 
 Find the Notebook URL on the log and copy it.
 
 ```
+% docker-compose logs
+
 http://localhost:8080/?token=...
 ```
 
-## Open Notebook by web browser
+### Open Notebook by web browser
 
 - Open web browser and type the Notebook URL (`http://localhost:8080/?token=...`).
 - Create a `Python 3` Notebook.
@@ -138,7 +236,7 @@ http://localhost:8080/?token=...
 
 ![jupyter_kaggle](https://user-images.githubusercontent.com/1632335/113484058-5afcc700-94e1-11eb-9f2e-a6fd01a0121a.png)
 
-## Setup Kaggle API
+### Setup Kaggle API
 
 [Setup Kaggle API credentials](https://github.com/Kaggle/kaggle-api#api-credentials).
 
@@ -175,7 +273,7 @@ After that, `~/.kaggle/kaggle.json` file should be on your local machine.
 !kaggle competitions list
 ```
 
-## Run `docker-compose down`
+### Run `docker-compose down` (local machine)
 
 After you finished your work, run `docker-compose down` to stop docker container. See details [here](https://docs.docker.com/compose/reference/down/).
 
@@ -183,11 +281,17 @@ After you finished your work, run `docker-compose down` to stop docker container
 % docker-compose down
 ```
 
-## Remove containers, images and cache
+### Shutdown the AI Platform Notebook (GCP)
 
-Basically `docker-compose up` and `docker-compose down` work well, but sometimes you may need to use these commands.
 
-How to remove containers. See details [here](https://docs.docker.com/engine/reference/commandline/rm/).
+
+### Remove containers, images and cache
+
+Basically `docker-compose up` and `docker-compose down` work well, but sometimes you may need to use these commands to maintain containers and images.
+
+- How to remove containers
+
+See details [here](https://docs.docker.com/engine/reference/commandline/rm/).
 
 ```sh
 docker ps -a  # confirm container ids to remove
@@ -195,14 +299,18 @@ docker rm CONTAINER  # remove container by id
 docker rm $(docker ps --filter status=exited -q)  # remove all containers that have exited
 ```
 
-How to remove images. See details [here](https://docs.docker.com/engine/reference/commandline/rmi/).
+- How to remove images
+
+See details [here](https://docs.docker.com/engine/reference/commandline/rmi/).
 
 ```sh
 docker images  # confirm image ids to remove
 docker rmi IMAGE  # remove image by id
 ```
 
-How to remove cache. See details [here](https://docs.docker.com/engine/reference/commandline/builder_prune/) and [here](https://docs.docker.com/engine/reference/commandline/volume_prune/).
+- How to remove cache
+
+See details [here](https://docs.docker.com/engine/reference/commandline/builder_prune/) and [here](https://docs.docker.com/engine/reference/commandline/volume_prune/).
 
 ```sh
 docker system df  # confirm how much disk used by cache
@@ -235,6 +343,8 @@ Connect to the remote Notebook. See details [here](https://code.visualstudio.com
 
 - Specify the Notebook URL (`http://localhost:8080/?token=...`)
 
+Note: `token` must be specified.
+
 ![vscode_uri](https://user-images.githubusercontent.com/1632335/113467238-c2ccf680-947c-11eb-9388-1ecd2297eb6b.png)
 
 - Press `Reload` button
@@ -250,7 +360,7 @@ Connect to the remote Notebook. See details [here](https://code.visualstudio.com
 
 ![vscode_new_notebook](https://user-images.githubusercontent.com/1632335/113467525-75518900-947e-11eb-86e1-e9e79d84e610.png)
 
-## Increase Docker memory
+## Increase Docker memory (local machine)
 
 Sometimes containers need much memory more than 2GB (is it default value?). You can increase amount of memory from Docker preferences.
 
@@ -265,7 +375,6 @@ Sometimes containers need much memory more than 2GB (is it default value?). You 
 
 ## TODO
 
-- Setup on GCP with GPU
 - Workflow to submit local Notebook to Kaggle
 
 ## Links
@@ -273,6 +382,8 @@ Sometimes containers need much memory more than 2GB (is it default value?). You 
 - https://github.com/Kaggle/docker-python
 - https://medium.com/kaggleteam/how-to-get-started-with-data-science-in-containers-6ed48cb08266
 - https://github.com/susumuota/kaggleenv
+- https://cloud.google.com/ai-platform/notebooks/docs
+- https://cloud.google.com/sdk/docs/quickstart
 - https://code.visualstudio.com/docs/python/jupyter-support#_connect-to-a-remote-jupyter-server
 - https://devblogs.microsoft.com/python/notebooks-are-getting-revamped/
 - https://amalog.hateblo.jp/entry/data-analysis-docker  (Japanese)
