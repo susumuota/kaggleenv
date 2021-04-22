@@ -8,6 +8,8 @@ A primally information source comes from [Kaggle's repository](https://github.co
 
 **Note: This method may take 20-30 minutes and 18.5GB disks for data downloads.**
 
+Note: If you do not use VSCode, you do not have to read this document. See [here](https://www.kaggle.com/product-feedback/159602).
+
 All files in this document are available on [my repository](https://github.com/susumuota/kaggleenv).
 
 There are 2 options, GCP or local machine. If you setup the environment on your local machine, go to `[Option 2] Setup the environment on your local machine` section.
@@ -394,6 +396,7 @@ Sometimes containers need much memory more than 2GB. You can increase the amount
 - https://cloud.google.com/sdk/docs/quickstart
 - https://code.visualstudio.com/docs/python/jupyter-support#_connect-to-a-remote-jupyter-server
 - https://devblogs.microsoft.com/python/notebooks-are-getting-revamped/
+- https://www.kaggle.com/product-feedback/159602
 - https://amalog.hateblo.jp/entry/data-analysis-docker  (Japanese)
 
 ## Author
