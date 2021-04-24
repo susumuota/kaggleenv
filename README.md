@@ -1,4 +1,4 @@
-# GCP (or local machine) + Kaggle Python docker image + VSCode
+# GCP (or local machine) + Kaggle Docker + VSCode
 
 ![vscode_jupyter](https://user-images.githubusercontent.com/1632335/113431667-0d1b8c80-9417-11eb-8183-e89084670f39.png)
 
