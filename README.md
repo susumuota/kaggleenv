@@ -21,12 +21,12 @@ On GCP, ["AI Platform Notebooks"](https://cloud.google.com/ai-platform/notebooks
 ### Create an AI Platform Notebook
 
 - Access https://console.cloud.google.com/ai/platform/notebooks
-- Select a project e.g. `kaggle-shopee-1` (You must create a project beforehand)
+- Select a project e.g. `kaggle-shopee-1` (You must [create a project](https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project) beforehand)
 - Click `NEW INSTANCE`
 - Choose `Customize instance`
 - Instance name: e.g. `kaggle-test-1`
 - Environment: `Kaggle Python [BETA]` (This option will automatically prepare [Kaggle Python docker image](https://github.com/Kaggle/docker-python) at startup the VM instance)
-- GPU type: e.g. `NVIDIA Tesla T4`
+- GPU type: e.g. `NVIDIA Tesla T4` (You must [increase GPU quota](https://cloud.google.com/compute/quotas#requesting_additional_quota) beforehand)
   - Mark the checkbox `Install NVIDIA GPU driver automatically for me`
 
 ![gcp_notebook_1](https://user-images.githubusercontent.com/1632335/115653028-636e5200-a369-11eb-9bda-8c34036591f4.png)
@@ -198,7 +198,7 @@ output
 
 Run `docker-compose build` to build the Docker image. See details [here](https://docs.docker.com/compose/reference/build/).
 
-**Note: This process may take 20-30 minutes and 18.5GB disks for data downloads on your local machine**.
+**Note: This process may take 20-30 minutes and over 18.5GB disks for data downloads on your local machine**.
 
 ```sh
 % docker-compose build
@@ -283,9 +283,9 @@ After you finished your work, stop the VM instance.
 - Check the VM instance on the list
 - Click `STOP` or `DELETE`
 
-If you `DELETE` the VM instance, you will not charge anything (as far as I know).
+If you `DELETE` the VM instance, you will not be charged anything (as far as I know).
 
-However, if you `STOP` the VM instance, you will charge for resources (e.g. persistent disk) until you `DELETE` it. You should `DELETE` if you do not use it for a long time (though you must setup the environment again). See details [here](https://cloud.google.com/compute/docs/instances/stop-start-instance#billing).
+However, if you `STOP` the VM instance, you will be charged for resources (e.g. persistent disk) until you `DELETE` it. You should `DELETE` if you do not use it for a long time (though you must setup the environment again). See details [here](https://cloud.google.com/compute/docs/instances/stop-start-instance#billing).
 
 ### Run `docker-compose down` (local machine)
 
