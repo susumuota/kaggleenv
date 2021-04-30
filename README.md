@@ -6,9 +6,9 @@ This document describes how to setup [Kaggle Python docker image](https://github
 
 A primally information source comes from [Kaggle's docker-python repository](https://github.com/Kaggle/docker-python). Also, there is a [guide](https://medium.com/kaggleteam/how-to-get-started-with-data-science-in-containers-6ed48cb08266), but unfortunately it's a bit obsoleted guide written in 2016.
 
-**Note: This method may take 20-30 minutes and over 18.5GB disks for data downloads.**
+> **_Note:_** This method may take 20-30 minutes and over 18.5GB disks for data downloads.
 
-**Note: If you do not use VSCode, no need to read this document. See [here](https://www.kaggle.com/product-feedback/159602).**
+> **_Note:_** If you do not use VSCode, no need to read this document. See [here](https://www.kaggle.com/product-feedback/159602).
 
 All files in this document are available on [my repository](https://github.com/susumuota/kaggleenv).
 
@@ -38,7 +38,7 @@ On GCP, ["AI Platform Notebooks"](https://cloud.google.com/ai-platform/notebooks
 
 ![gcp_notebook_2](https://user-images.githubusercontent.com/1632335/115653237-c7911600-a369-11eb-88b1-db382a1f997e.png)
 
-- Wait for around 20-30 minutes to start up the VM instance. I guess it's because of `docker pull`. If you choose GPU type: `None`, it takes a few minutes.
+- Wait for around 20-30 minutes to start up the VM instance. I guess it's because of `docker pull`. If you choose GPU type: `None`, it takes a few minutes. Check the console logs at [here](https://console.cloud.google.com/logs/).
 
 ### Connect to the VM instance
 
@@ -52,9 +52,13 @@ After that, `gcloud` command should be available on your terminal.
 % gcloud compute --project "kaggle-shopee-1" ssh --zone "us-west1-b" "kaggle-test-1" -- -L 8080:localhost:8080
 ```
 
+> **_Note:_** You must wait to start up the VM instance. Check the console logs at [here](https://console.cloud.google.com/logs/).
+
+> **_Note:_** I recommend to limit source IP ranges for SSH and RDP port. See [here](https://cloud.google.com/vpc/docs/using-firewalls#creating_firewall_rules).
+
 - Open web browser and try to access `http://localhost:8080`
 
-Note: There is no `token=...`.
+> **_Note:_** There is no `token=...`.
 
 If you do not use VSCode, that's all. You do not have to do anything below.
 
@@ -158,7 +162,7 @@ Create `jupyter_notebook_config.py.patch` like the following.
 +c.NotebookApp.notebook_dir = '/tmp/working'
 ```
 
-Note: This patch may not work in the future version of [Kaggle Python docker image](https://github.com/Kaggle/docker-python). In that case, create a new patch with `diff -u original new > patch`. At least I confirmed this patch work on `v99` tag.
+> **_Note:_** This patch may not work in the future version of [Kaggle Python docker image](https://github.com/Kaggle/docker-python). In that case, create a new patch with `diff -u original new > patch`. At least I confirmed this patch work on `v99` tag.
 
 ### Create `docker-compose.yml`
 
@@ -198,7 +202,7 @@ output
 
 Run `docker-compose build` to build the Docker image. See details [here](https://docs.docker.com/compose/reference/build/).
 
-**Note: This process may take 20-30 minutes and over 18.5GB disks for data downloads on your local machine**.
+> **_Note:_** This process may take 20-30 minutes and over 18.5GB disks for data downloads on your local machine.
 
 ```sh
 % docker-compose build
@@ -320,7 +324,7 @@ Connect to the remote Notebook. See details [here](https://code.visualstudio.com
 
 - Specify the Notebook URL (`http://localhost:8080/?token=...`)
 
-Note: `token` must be specified.
+> **_Note:_** `token` must be specified.
 
 ![vscode_uri](https://user-images.githubusercontent.com/1632335/113467238-c2ccf680-947c-11eb-9388-1ecd2297eb6b.png)
 
