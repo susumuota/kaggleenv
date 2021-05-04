@@ -3,8 +3,8 @@ services:
   jupyter:
     build: .
     volumes:
-      - $PWD:/tmp/working
-    working_dir: /tmp/working
+      - $PWD:/kaggle/working
+    working_dir: /kaggle/working
     ports:
       - "8080:8080"
     hostname: localhost

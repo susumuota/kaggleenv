@@ -130,7 +130,7 @@ Create `Dockerfile` like the following. See details [here](https://docs.docker.c
 # for GPU
 FROM gcr.io/kaggle-gpu-images/python:latest
 
-# apply patch to enable token and change notebook directory to /tmp/working
+# apply patch to enable token and change notebook directory to /kaggle/working
 # see jupyter_notebook_config.py.patch
 COPY jupyter_notebook_config.py.patch /opt/jupyter/.jupyter/
 RUN (cd /opt/jupyter/.jupyter/ && patch < jupyter_notebook_config.py.patch)
@@ -146,7 +146,7 @@ You can specify a tag (e.g. edit `latest` to `v99`) to keep using the same envir
 This Docker image will run Jupyter Lab with startup script `/run_jupyter.sh` and config `/opt/jupyter/.jupyter/jupyter_notebook_config.py`. It needs to be tweaked like the following.
 
 - Enable token (so that VSCode can connect properly)
-- Change notebook directory to `/tmp/working`
+- Change notebook directory to `/kaggle/working`
 
 Create `jupyter_notebook_config.py.patch` like the following.
 
@@ -159,14 +159,14 @@ Create `jupyter_notebook_config.py.patch` like the following.
 @@ -11 +11,2 @@
 -c.NotebookApp.notebook_dir = '/home/jupyter'
 +# c.NotebookApp.notebook_dir = '/home/jupyter'
-+c.NotebookApp.notebook_dir = '/tmp/working'
++c.NotebookApp.notebook_dir = '/kaggle/working'
 ```
 
 > **_Note:_** This patch may not work in the future version of [Kaggle Python docker image](https://github.com/Kaggle/docker-python). In that case, create a new patch with `diff -u original new > patch`. At least I confirmed this patch work on `v99` tag.
 
 ### Create `docker-compose.yml`
 
-Create `docker-compose.yml` like the following. See details [here](https://docs.docker.com/compose/). This setting mounts current directory on your local machine to `/tmp/working` on the container. If you use CPU instead of GPU, comment out `runtime: nvidia`.
+Create `docker-compose.yml` like the following. See details [here](https://docs.docker.com/compose/). This setting mounts current directory on your local machine to `/kaggle/working` on the container. If you use CPU instead of GPU, comment out `runtime: nvidia`.
 
 ```yaml
 version: "3"
@@ -174,8 +174,8 @@ services:
   jupyter:
     build: .
     volumes:
-      - $PWD:/tmp/working
-    working_dir: /tmp/working
+      - $PWD:/kaggle/working
+    working_dir: /kaggle/working
     ports:
       - "8080:8080"
     hostname: localhost
@@ -248,23 +248,23 @@ http://localhost:8080/?token=...
 
 After that, `~/.kaggle/kaggle.json` file should be on your local machine.
 
-- Copy `~/.kaggle/kaggle.json` to current directory **on your local machine** (so that it can be accessed from the container at `/tmp/working/kaggle.json`)
+- Copy `~/.kaggle/kaggle.json` to current directory **on your local machine** (so that it can be accessed from the container at `/kaggle/working/kaggle.json`)
 
 ```sh
 % cp -p ~/.kaggle/kaggle.json .
 ```
 
-- Create a code cell on the Notebook and confirm `/tmp/working/kaggle.json` on the container.
+- Create a code cell on the Notebook and confirm `/kaggle/working/kaggle.json` on the container.
 
 ```sh
-!ls -l /tmp/working/kaggle.json
--rw------- 1 root root 65 Mar 22 07:59 /tmp/working/kaggle.json
+!ls -l /kaggle/working/kaggle.json
+-rw------- 1 root root 65 Mar 22 07:59 /kaggle/working/kaggle.json
 ```
 
 - Copy it to `~/.kaggle` directory on the container.
 
 ```sh
-!cp -p /tmp/working/kaggle.json ~/.kaggle/
+!cp -p /kaggle/working/kaggle.json ~/.kaggle/
 ```
 
 - Remove `kaggle.json` on the current directory **on your local machine**.
