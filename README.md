@@ -98,9 +98,9 @@ After that, `docker` and `docker-compose` commands should be available on your t
 
 ```sh
 % docker -v
-Docker version 20.10.5, build 55c4c88
+Docker version 20.10.8, build 3967b7d
 % docker-compose -v
-docker-compose version 1.28.5, build c4eb3a1f
+docker-compose version 1.29.2, build 5becea4c
 ```
 
 ## Run Docker container (both GCP and local machine)
@@ -139,7 +139,7 @@ RUN (cd /opt/jupyter/.jupyter/ && patch < jupyter_notebook_config.py.patch)
 # RUN pip install -U pip
 ```
 
-You can specify a tag (e.g. edit `latest` to `v99`) to keep using the same environment, otherwise it fetches latest one every time you build image. You can find tags from [GCR page](https://gcr.io/kaggle-images/python).
+You can specify a tag (e.g. `v105` instead of `latest`) to keep using the same environment, otherwise it fetches latest one every time you build image. You can find tags from [GCR page](https://gcr.io/kaggle-images/python).
 
 ### Create `jupyter_notebook_config.py.patch`
 
@@ -151,18 +151,18 @@ This Docker image will run Jupyter Lab with startup script `/run_jupyter.sh` and
 Create `jupyter_notebook_config.py.patch` like the following.
 
 ```patch
---- jupyter_notebook_config.py.orig	2021-02-17 07:52:56.000000000 +0000
-+++ jupyter_notebook_config.py	2021-04-05 06:19:23.640584228 +0000
-@@ -4 +4 @@
--c.NotebookApp.token = ''
-+# c.NotebookApp.token = ''
-@@ -11 +11,2 @@
--c.NotebookApp.notebook_dir = '/home/jupyter'
-+# c.NotebookApp.notebook_dir = '/home/jupyter'
-+c.NotebookApp.notebook_dir = '/kaggle/working'
+--- jupyter_notebook_config.py.orig	2021-09-23 06:23:25.000000000 +0000
++++ jupyter_notebook_config.py	2021-10-13 11:11:23.315029244 +0000
+@@ -9 +9 @@
+-c.NotebookApp.token = ""
++# c.NotebookApp.token = ""
+@@ -16 +16,2 @@
+-c.NotebookApp.notebook_dir = "/home/jupyter"
++# c.NotebookApp.notebook_dir = "/home/jupyter"
++c.NotebookApp.notebook_dir = "/kaggle/working"
 ```
 
-> **_Note:_** This patch may not work in the future version of [Kaggle Python docker image](https://github.com/Kaggle/docker-python). In that case, create a new patch with `diff -u original new > patch`. At least I confirmed this patch work on `v99` tag.
+> **_Note:_** This patch may not work in the future version of [Kaggle Python docker image](https://github.com/Kaggle/docker-python). In that case, create a new patch with `diff -u original new > patch`. At least I confirmed this patch work on `v105` tag.
 
 ### Create `docker-compose.yml`
 
@@ -343,16 +343,17 @@ Connect to the remote Notebook. See details [here](https://code.visualstudio.com
 
 ## Increase Docker memory (local machine)
 
-Sometimes containers need much memory more than 2GB. You can increase the amount of memory from Docker preferences.
+Sometimes containers need much resources (e.g. memory or disk). You can increase the amount of resources from Docker preferences.
 
 - Click Docker icon
 - Choose `Preferences...`
 - Click `Resources`
 - Click `ADVANCED`
-- Increase `Memory` slider over `2.00 GB`
+- Increase `Memory`, e.g. `8GB`
+- Increase `Disk image size`, e.g. `128GB`
 - Click `Apply & Restart`
 
-![docker_preferences](https://user-images.githubusercontent.com/1632335/113466563-dc1f7400-9477-11eb-861d-fa4dd0ce357c.png)
+![docker_preferences](https://user-images.githubusercontent.com/1632335/137115613-88386ee7-807e-4252-920f-73ef04d9a18a.png)
 
 ## Maintain Docker containers, images and cache
 
