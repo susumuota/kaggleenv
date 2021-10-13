@@ -1,7 +1,7 @@
 # for CPU
-# FROM gcr.io/kaggle-images/python:latest
+# FROM gcr.io/kaggle-images/python:v105
 # for GPU
-FROM gcr.io/kaggle-gpu-images/python:latest
+FROM gcr.io/kaggle-gpu-images/python:v105
 
 # apply patch to enable token and change notebook directory to /kaggle/working
 # see jupyter_notebook_config.py.patch
