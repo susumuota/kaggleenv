@@ -84,7 +84,7 @@ Stop pre-installed Docker container and turn off the startup option. See details
 `docker-compose` will be convenient to run containers, even on a single container. See details [here](https://docs.docker.com/compose/install/).
 
 ```
-% sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+% sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 % sudo chmod +x /usr/local/bin/docker-compose
 ```
 
@@ -341,7 +341,7 @@ Connect to the remote Notebook. See details [here](https://code.visualstudio.com
 
 ![vscode_new_notebook](https://user-images.githubusercontent.com/1632335/113467525-75518900-947e-11eb-86e1-e9e79d84e610.png)
 
-## Increase Docker memory (local machine)
+## Increase Docker resources (local machine)
 
 Sometimes containers need much resources (e.g. memory or disk). You can increase the amount of resources from Docker preferences.
 
