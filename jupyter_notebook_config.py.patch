@@ -1,9 +1,9 @@
---- jupyter_notebook_config.py.orig	2021-09-23 06:23:25.000000000 +0000
-+++ jupyter_notebook_config.py	2021-10-13 11:11:23.315029244 +0000
-@@ -9 +9 @@
--c.NotebookApp.token = ""
-+# c.NotebookApp.token = ""
-@@ -16 +16,2 @@
--c.NotebookApp.notebook_dir = "/home/jupyter"
-+# c.NotebookApp.notebook_dir = "/home/jupyter"
-+c.NotebookApp.notebook_dir = "/kaggle/working"
+--- jupyter_notebook_config.py.orig	2021-12-19 07:04:25.000000000 +0000
++++ jupyter_notebook_config.py	2022-01-29 18:19:29.016821460 +0000
+@@ -11 +11 @@
+-c.ServerApp.token = ""
++# c.ServerApp.token = ""
+@@ -17 +17,2 @@
+-c.ServerApp.notebook_dir = "/home/jupyter"
++# c.ServerApp.notebook_dir = "/home/jupyter"
++c.ServerApp.notebook_dir = "/kaggle/working"

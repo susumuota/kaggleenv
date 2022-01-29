@@ -126,9 +126,9 @@ Create `Dockerfile` like the following. See details [here](https://docs.docker.c
 
 ```Dockerfile
 # for CPU
-# FROM gcr.io/kaggle-images/python:v105
+# FROM gcr.io/kaggle-images/python:v109
 # for GPU
-FROM gcr.io/kaggle-gpu-images/python:v105
+FROM gcr.io/kaggle-gpu-images/python:v109
 
 # apply patch to enable token and change notebook directory to /kaggle/working
 # see jupyter_notebook_config.py.patch
@@ -139,7 +139,7 @@ RUN (cd /opt/jupyter/.jupyter/ && patch < jupyter_notebook_config.py.patch)
 # RUN pip install -U pip
 ```
 
-You can specify a tag (e.g. `v105` instead of `latest`) to keep using the same environment, otherwise it fetches latest one every time you build image. You can find tags from [GCR page](https://gcr.io/kaggle-images/python).
+You can specify a tag (e.g. `v109` or `latest`) to keep using the same environment. You can find tags from [GCR page](https://gcr.io/kaggle-images/python).
 
 ### Create `jupyter_notebook_config.py.patch`
 
@@ -151,18 +151,18 @@ This Docker image will run Jupyter Lab with startup script `/run_jupyter.sh` and
 Create `jupyter_notebook_config.py.patch` like the following.
 
 ```patch
---- jupyter_notebook_config.py.orig	2021-09-23 06:23:25.000000000 +0000
-+++ jupyter_notebook_config.py	2021-10-13 11:11:23.315029244 +0000
-@@ -9 +9 @@
--c.NotebookApp.token = ""
-+# c.NotebookApp.token = ""
-@@ -16 +16,2 @@
--c.NotebookApp.notebook_dir = "/home/jupyter"
-+# c.NotebookApp.notebook_dir = "/home/jupyter"
-+c.NotebookApp.notebook_dir = "/kaggle/working"
+--- jupyter_notebook_config.py.orig	2021-12-19 07:04:25.000000000 +0000
++++ jupyter_notebook_config.py	2022-01-29 18:19:29.016821460 +0000
+@@ -11 +11 @@
+-c.ServerApp.token = ""
++# c.ServerApp.token = ""
+@@ -17 +17,2 @@
+-c.ServerApp.notebook_dir = "/home/jupyter"
++# c.ServerApp.notebook_dir = "/home/jupyter"
++c.ServerApp.notebook_dir = "/kaggle/working"
 ```
 
-> **_Note:_** This patch may not work in the future version of [Kaggle Python docker image](https://github.com/Kaggle/docker-python). In that case, create a new patch with `diff -u original new > patch`. At least I confirmed this patch work on `v105` tag.
+> **_Note:_** This patch may not work in the future version of [Kaggle Python docker image](https://github.com/Kaggle/docker-python). In that case, create a new patch with `diff -u original new > patch`. At least I confirmed this patch work on `v109` tag.
 
 ### Create `docker-compose.yml`
 
