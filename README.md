@@ -16,14 +16,15 @@ There are 2 options, GCP or local machine. If you are going to setup the environ
 
 ## [Option 1] Setup the environment on GCP
 
-On GCP, ["AI Platform Notebooks"](https://cloud.google.com/ai-platform/notebooks/docs) would be easier than ["Compute Engine"](https://cloud.google.com/compute/docs/) (GCE) to setup [Kaggle Python docker image](https://github.com/Kaggle/docker-python).
+On GCP, ["Vertex AI Workbench"](https://cloud.google.com/vertex-ai/docs/workbench) would be easier than ["Compute Engine"](https://cloud.google.com/compute/docs/) (GCE) to setup [Kaggle Python docker image](https://github.com/Kaggle/docker-python).
 
-### Create an AI Platform Notebook
+### Create a Vertex AI Workbench
 
-- Access https://console.cloud.google.com/ai/platform/notebooks
-- Select a project e.g. `kaggle-shopee-1` (You must [create a project](https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project) beforehand)
-- Click `NEW INSTANCE`
-- Choose `Customize instance`
+- Access https://console.cloud.google.com/vertex-ai/workbench
+- Select a project e.g. `kaggle-myproject-1` (You must [create a project](https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project) beforehand)
+- Click `USER-MANAGED NOTEBOOK`
+- Click `NEW NOTEBOOK`
+- Choose `Customize...`
 - Instance name: e.g. `kaggle-test-1`
 - Environment: `Kaggle Python [BETA]` (This option will automatically prepare [Kaggle Python docker image](https://github.com/Kaggle/docker-python) at startup the VM instance)
 - GPU type: e.g. `NVIDIA Tesla T4` (You must [increase GPU quota](https://cloud.google.com/compute/quotas#requesting_additional_quota) beforehand)
@@ -49,7 +50,7 @@ After that, `gcloud` command should be available on your terminal.
 - SSH to the VM instance with port forwarding
 
 ```
-% gcloud compute --project "kaggle-shopee-1" ssh --zone "us-west1-b" "kaggle-test-1" -- -L 8080:localhost:8080
+% gcloud compute --project "kaggle-myproject-1" ssh --zone "us-west1-b" "kaggle-test-1" -- -L 8080:localhost:8080
 ```
 
 > **_Note:_** You must wait to start up the VM instance. Check the console logs at [here](https://console.cloud.google.com/logs/).
@@ -279,11 +280,11 @@ After that, `~/.kaggle/kaggle.json` file should be on your local machine.
 !kaggle competitions list
 ```
 
-### Shutdown the AI Platform Notebook (GCP)
+### Shutdown the Vertex AI Workbench (GCP)
 
 After you finished your work, stop the VM instance.
 
-- Access https://console.cloud.google.com/ai/platform/notebooks/list/instances
+- Access https://console.cloud.google.com/vertex-ai/workbench/list/instances
 - Check the VM instance on the list
 - Click `STOP` or `DELETE`
 
@@ -391,7 +392,7 @@ Basically `docker-compose up -d` and `docker-compose down` work well, but someti
 - https://github.com/Kaggle/docker-python
 - https://medium.com/kaggleteam/how-to-get-started-with-data-science-in-containers-6ed48cb08266
 - https://github.com/susumuota/kaggleenv
-- https://cloud.google.com/ai-platform/notebooks/docs
+- https://cloud.google.com/vertex-ai/docs/workbench
 - https://cloud.google.com/sdk/docs/quickstart
 - https://code.visualstudio.com/docs/python/jupyter-support#_connect-to-a-remote-jupyter-server
 - https://devblogs.microsoft.com/python/notebooks-are-getting-revamped/
